@@ -47,6 +47,5 @@ EXPOSE 8080
 WORKDIR /app
 
 # Nsjail exec for secure Flask app
-CMD ["nsjail", "--config", "/etc/nsjail/nsjail.cfg", "--disable_clone_newns", "--disable_clone_newcgroup", "--disable_clone_newuts", "--disable_clone_newipc", "--disable_clone_newuser", "--disable_clone_newpid", "--", "python3", "/app/app.py"]
-# CMD ["nsjail", "--config", "/etc/nsjail/nsjail.cfg", "--port", "8080", "--", "python3", "/app/app.py"]
+CMD ["nsjail", "--config", "/etc/nsjail/nsjail.cfg", "--", "python3", "/app/app.py"]
 
