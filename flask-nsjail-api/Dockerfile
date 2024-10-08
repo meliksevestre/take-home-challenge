@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install -r requirements.txt
+RUN pip3 install gunicorn
 
 # Nsjail cloning and compilation
 WORKDIR /tmp
@@ -47,5 +48,6 @@ EXPOSE 8080
 WORKDIR /app
 
 # Nsjail exec for secure Flask app
-CMD ["nsjail", "--config", "/etc/nsjail/nsjail.cfg", "--", "python3", "/app/app.py"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app:app"]
+# CMD ["nsjail", "--config", "/etc/nsjail/nsjail.cfg", "--", "python3", "/app/app.py"]
 
